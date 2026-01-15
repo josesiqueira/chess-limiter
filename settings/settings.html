@@ -24,6 +24,30 @@
       </div>
 
       <div class="form-group">
+        <label>When limit is reached:</label>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" name="redirect-type" value="url" id="redirect-url" checked>
+            <span>Redirect to URL</span>
+          </label>
+          <label class="radio-label">
+            <input type="radio" name="redirect-type" value="message" id="redirect-message">
+            <span>Show message</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group" id="url-group">
+        <label for="redirect-url-input">Redirect URL:</label>
+        <input type="text" id="redirect-url-input" placeholder="https://example.com">
+      </div>
+
+      <div class="form-group" id="message-group" style="display: none;">
+        <label for="redirect-message-input">Message to display:</label>
+        <textarea id="redirect-message-input" placeholder="Time to take a break from chess!"></textarea>
+      </div>
+
+      <div class="form-group">
         <button id="save-btn" class="save-btn">Save</button>
       </div>
 

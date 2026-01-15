@@ -1,8 +1,6 @@
 // Chess Limiter - Content Script
 // Runs on chess.com pages to enforce game limits
 
-const REDIRECT_URL = 'https://scholar.google.com.br/citations?user=by37RZQAAAAJ&hl=pt-BR';
-
 // Selectors for play/new game buttons (may need adjustment based on chess.com DOM)
 const PLAY_BUTTON_SELECTORS = [
   '[data-cy="new-game-button"]',
@@ -30,6 +28,9 @@ const GAME_URL_PATTERNS = [
   /^https:\/\/www\.chess\.com\/game\/daily\/.+/,
   /^https:\/\/www\.chess\.com\/play\/computer/
 ];
+
+// Default redirect URL (fallback)
+const DEFAULT_REDIRECT_URL = 'https://scholar.google.com.br/citations?user=by37RZQAAAAJ&hl=pt-BR';
 
 // Track shown toasts to avoid duplicates
 let shownToastUrls = new Set();
@@ -64,6 +65,21 @@ async function updateGameStatus() {
   } catch (error) {
     console.error('Chess Limiter: Failed to get game status:', error);
   }
+}
+
+// Get the redirect URL based on settings
+async function getRedirectUrl() {
+  const data = await chrome.storage.local.get(['redirectType', 'redirectUrl', 'redirectMessage']);
+
+  if (data.redirectType === 'message' && data.redirectMessage) {
+    // Redirect to the message page
+    return chrome.runtime.getURL('redirect/redirect.html');
+  } else if (data.redirectType === 'url' && data.redirectUrl) {
+    return data.redirectUrl;
+  }
+
+  // Fallback to default
+  return DEFAULT_REDIRECT_URL;
 }
 
 // Check if current URL is a game page
@@ -131,7 +147,8 @@ async function handleClick(event) {
       event.stopPropagation();
       event.stopImmediatePropagation();
 
-      window.location.href = REDIRECT_URL;
+      const redirectUrl = await getRedirectUrl();
+      window.location.href = redirectUrl;
       return;
     }
   }
@@ -145,7 +162,8 @@ async function handleClick(event) {
       event.stopPropagation();
       event.stopImmediatePropagation();
 
-      window.location.href = REDIRECT_URL;
+      const redirectUrl = await getRedirectUrl();
+      window.location.href = redirectUrl;
       return;
     }
   }
