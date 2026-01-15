@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Limiter</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1><span class="icon">&#9823;</span> Chess Limiter</h1>
+    </header>
+
+    <div id="no-username" class="no-username" style="display: none;">
+      <p>Please configure username in settings <span class="settings-link" id="settings-link-prompt">&#9881;</span></p>
+    </div>
+
+    <div id="main-content" style="display: none;">
+      <div class="today-section">
+        <span class="today-label">Today: <span id="today-count">0/5</span></span>
+        <span class="settings-icon" id="settings-link" title="Settings">&#9881;</span>
+      </div>
+
+      <div class="history-section">
+        <div id="history-list" class="history-list">
+          <!-- History entries will be inserted here -->
+        </div>
+      </div>
+
+      <div class="footer">
+        <button id="full-history-btn" class="full-history-btn">Show full history</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

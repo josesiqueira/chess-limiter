@@ -1,0 +1,33 @@
+.chess-limiter-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 999999;
+  animation: chess-limiter-toast-slide-in 0.3s ease, chess-limiter-toast-fade-out 0.3s ease 2.7s forwards;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+}
+
+@keyframes chess-limiter-toast-slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes chess-limiter-toast-fade-out {
+  to {
+    opacity: 0;
+  }
+}
